@@ -8,10 +8,10 @@ Clone the repo:
 
 Dependencies:
 - `tkinter`
-- `PIL` (Pillow)
-- `os`
-- `sys`
-- `platform`
+- `PIL` (pillow)
+
+Install:
+- `pip install pillow`
 
 ## Usage
 By default, the script will create a folder called `lineCuts` on the same level as the directory of images, if you do not provide an output directory.  The script will go through all of the images in the folder, or until you exit the application.
