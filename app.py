@@ -3,6 +3,7 @@ from tkinter import messagebox
 from PIL import ImageTk, Image
 import os
 import sys
+import csv
 
 from scrollImg import ScrollableImage
 
@@ -15,6 +16,7 @@ class LineLabel(tk.Frame):
 
         self.parent = parent
         self.labelMode = tk.BooleanVar(value=True)
+        self.lineCuts = {}
         self.setupUI()
 
     def setupUI(self):
@@ -47,12 +49,25 @@ class LineLabel(tk.Frame):
 
     def exitConfirm(self):
         MsgBox = messagebox.askquestion(
-            'Exit Application', 'Are you sure you want to exit the application', icon='warning')
+            'Exit Application', 'Are you sure you want to exit the application?', icon='warning')
         if MsgBox == 'yes':
             exit()
 
     def nextPage(self):
-        print("nextPage")
+        MsgBox = messagebox.askquestion(
+            'Next Page', 'Are you sure you are done with this page?', icon='warning')
+        if MsgBox == 'yes':
+            self.writeCutInfo()
+            self.parent.destroy()
+
+    def writeCutInfo(self):
+        cutIndices = list(self.lineCuts)
+        cutIndices.sort()
+        outputFile = self.imgPath.replace('.tif', '_cutLines.csv')
+        fout = open(outputFile, "w")
+        for line in cutIndices:
+            fout.write(str(int(line)) + '\n')
+        fout.close()
 
 
 def labelImage(path):

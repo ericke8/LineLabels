@@ -14,7 +14,7 @@ class ScrollableImage(tkinter.Canvas):
         self.width = self.image.width()
         self.height = self.image.height()
 
-        self['highlightthickness'] = 0
+        #self['highlightthickness'] = 0
         self.propagate(0)  # wont let the scrollbars rule the size of Canvas
         self.create_image(0, 0, anchor='ne', image=self.image)
 
@@ -53,8 +53,16 @@ class ScrollableImage(tkinter.Canvas):
                 self.yview_scroll(1, 'units')
 
     def mouse_click(self, evt):
-        if(self.parent.labelMode.get() == True):
-            y = self.canvasy(evt.y)
-            self.create_line(0, y, -1 * self.width, y, fill='red', width=3)
+        y = self.canvasy(evt.y)
+
+        if self.parent.labelMode.get() == True:
+            if y not in self.parent.lineCuts:
+                lineId = self.create_line(0, y, -1 * self.width, y, fill='red', width=3)
+                self.parent.lineCuts[y] = lineId
         else:
-            print("rem")
+            for line in self.parent.lineCuts.keys():
+                print(line)
+                if line < y + 5 and line > y - 5:
+                    self.delete(self.parent.lineCuts[line])
+                    del self.parent.lineCuts[line]
+                    break
