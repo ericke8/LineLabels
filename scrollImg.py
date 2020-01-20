@@ -61,7 +61,6 @@ class ScrollableImage(tkinter.Canvas):
                 self.parent.lineCuts[y] = lineId
         else:
             for line in self.parent.lineCuts.keys():
-                print(line)
                 if line < y + 5 and line > y - 5:
                     self.delete(self.parent.lineCuts[line])
                     del self.parent.lineCuts[line]
