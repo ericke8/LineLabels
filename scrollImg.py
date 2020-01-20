@@ -6,9 +6,13 @@ OS = platform.system()
 
 
 class ScrollableImage(tkinter.Canvas):
-    def __init__(self, master=None, **kw):
+    def __init__(self, parent, master=None, **kw):
+        self.parent = parent
         self.image = kw.pop('image', None)
         super(ScrollableImage, self).__init__(master=master, **kw)
+
+        self.width = self.image.width()
+        self.height = self.image.height()
 
         self['highlightthickness'] = 0
         self.propagate(0)  # wont let the scrollbars rule the size of Canvas
@@ -35,6 +39,8 @@ class ScrollableImage(tkinter.Canvas):
         else:
             self.bind_class(self, "<MouseWheel>", self.mouse_scroll)
 
+        self.bind_class(self, "<Button-1>", self.mouse_click)
+
     def mouse_scroll(self, evt):
         if OS == "Windows":
             self.yview_scroll(int(-1*(evt.delta/120)), 'units')  # For windows
@@ -45,3 +51,10 @@ class ScrollableImage(tkinter.Canvas):
                 self.yview_scroll(-1, 'units')
             elif evt.num == 5:
                 self.yview_scroll(1, 'units')
+
+    def mouse_click(self, evt):
+        if(self.parent.labelMode.get() == True):
+            y = self.canvasy(evt.y)
+            self.create_line(0, y, -1 * self.width, y, fill='red', width=3)
+        else:
+            print("rem")

@@ -14,6 +14,10 @@ def exitConfirm():
     if MsgBox == 'yes':
         exit()
 
+def nextPage():
+    print("next page")
+    ## TODO
+
 
 def labelImage(imgPath):
     root = Tk()
@@ -26,7 +30,9 @@ def labelImage(imgPath):
     img = ScrollableImage(img_frame, image=tkImage,
                           width=pilImage.width, height=pilImage.height).pack()
 
-    exitButton = Button(control_frame, text="Exit App",
+    nextButton = Button(control_frame, text="Next Page",
+                        command=nextPage).pack(side=TOP)
+    exitButton = Button(control_frame, text="Exit",
                         command=exitConfirm).pack(side=BOTTOM)
 
     output_frame.pack(side=LEFT)
