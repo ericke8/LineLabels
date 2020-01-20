@@ -13,6 +13,10 @@ Dependencies:
 Install:
 - `pip install pillow`
 
+OR
+
+- `conda install pillow`
+
 ## Usage
 By default, the script will create a folder called `lineCuts` on the same level as the directory of images, if you do not provide an output directory.  The script will go through all of the images in the folder, or until you exit the application.
 
