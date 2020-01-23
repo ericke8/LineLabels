@@ -14,6 +14,7 @@ class LineLabel(tk.Frame):
         tk.Frame.__init__(self, parent, *args, **kwargs)
 
         self.parent = parent
+        self.control_window = tk.Toplevel(self.parent)  
         self.labelMode = tk.BooleanVar(value=True)
         self.lineCuts = {}
         
@@ -27,7 +28,7 @@ class LineLabel(tk.Frame):
     def setupUI(self):
         self.parent.title("LineLabel")
         self.img_frame = tk.Frame(self)
-        self.control_frame = tk.Frame(self)
+        self.control_frame = tk.Frame(self.control_window)
         self.switch_frame = tk.Frame(self.control_frame)
         #output_frame = Frame(root)
 
