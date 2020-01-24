@@ -54,6 +54,10 @@ class ScrollableImage(tkinter.Canvas):
 
     def mouse_click(self, evt):
         y = self.canvasy(evt.y)
+        if y > self.height:
+            y = self.height
+        if y < 0:
+            y = 0
 
         if self.parent.labelMode.get() == True:
             if y not in self.parent.lineCuts:
